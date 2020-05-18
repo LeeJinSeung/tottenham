@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="content" style="height:50%">
+    <div class="container">
+      <br><br>
+        <div class="row">
+            <article>
+              <div class="col" id='board_list'>                
+              </div>
+            </article>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 text-center">
+                <form class="form-inline" method="GET">
+                    <input type="search" class="form-control" name="keyword">
+                    <input type="submit" class="btn btn-primary mx-2" value="검색"></button>
+                </form>
+            </div>
+            <div class="col-lg-6 text-center">
+                <ul class="pagination" id='board_pagination' style="margin:0px 0px 20px 0px">
+                    <li class="page-item"><a class="page-link" href="{% if pageNum - 5 < dbNum %} {{ url_for('board', page=dbNum) }} {% else %} {{ url_for('board', page=pageNum-5) }} {% endif %}"><</a></li>
+                    {% for pn in pageNumList %}
+                    <li class="page-item {% if pn==pageNum %}active{% endif %}"><a class="page-link" href="{{ url_for('board', page=pn) }}">{{ pn }}</a></li>
+                    {% endfor %}
+                    <li class="page-item"><a class="page-link" href="{% if pageNum + 5 > dbNum %} {{ url_for('board', page=dbNum) }} {% else %} {{ url_for('board', page=pageNum+5) }} {% endif %}">></a></li>
+                </ul>                
+            </div>            
+            <div class="col-lg-3 text-center">
+                {% if u_name %}
+                <a class="btn btn-primary mx-2" href="{{ url_for('board_post') }}" >글 등록</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function() {
+        // initialize
+
+        // 게시판 글목록 페이지 가져오기
+        console.log("{{pageNum}}", "{{keyword}}");
+        
+        $.get("{{ url_for('board_list', page=pageNum, keyword=keyword) }}".replace("&amp;", "&"), function(data, status){
+            // console.log("Data: " + data + "\nStatus: " + status);
+            $("#board_list").html(data);
+        });
+    });
+</script>
+{% endblock %}

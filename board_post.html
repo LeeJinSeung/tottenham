@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <h2 class="text-center py-3">게시판 글 등록 페이지</h2>
+                <form class="form" id="boardPostForm" method="POST" onsubmit="return validateForm();" action="{{ url_for('board_post') }}">
+                    <div class="form-group">
+                        <label for="title">제목:</label>
+                        <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="b_password">비밀번호:</label>
+                        <input type="password" class="form-control" id="b_password" placeholder="비밀번호를 입력해주세요." name="b_password">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">내용:</label>
+                        <textarea class="form-control" id="content" placeholder="10자 이상 입력해 주세요." name="content" rows="10"></textarea>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary my-3 mx-2">게시판 글 등록</button>
+                        <a href="{{ url_for('board') }}" class="btn btn-primary mx-2">이전 화면</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            
+            var title = document.getElementById("title").value;
+            if(title == ""){
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+
+            var pw = document.getElementById("b_password").value;
+            if(pw.length < 8){
+                alert("비밀번호는 8글자 이상 입력해야 합니다.");
+                return false;
+            }
+            var content = document.getElementById("content").value;
+            if(content.length<10){
+                alert("10자 이상 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row py-3">
+            <div class="col">
+                <h2 class="text-center py-3">회원 등록 페이지</h2>
+                <form class="form" id="signupForm" method="POST" onsubmit="return validateForm();" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="p_pic">프로필 사진:</label>
+                        <input type="file" class="form-control" id="p_pic" name="p_pic">
+                    </div>
+                    <div class="form-group">
+                        <label for="u_id">아이디:</label>
+                        <input type="text" class="form-control" id="u_id" placeholder="아이디를 입력해주세요." name="u_id">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">비밀번호:</label>
+                        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요." name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">비밀번호 확인:</label>
+                        <input type="password" class="form-control" id="password2" placeholder="비밀번호를 확인해주세요." name="password2">
+                    </div>
+                    <div class="form-group">
+                        <label for="u_name">이름:</label>
+                        <input type="text" class="form-control" id="u_name" placeholder="이름을 입력해주세요." name="u_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="birth">생년월일:</label>
+                        <input type="date" class="form-control" id="birth" placeholder="생년월일을 입력해주세요." name="birth">
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">전화번호:</label>
+                        <input type="tel" class="form-control" id="tel" placeholder="전화번호를 입력해주세요." name="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>성별: </label>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" id="male" name="gender" value="M">Male
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" id="female" name="gender" value="F">Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="job">직업:</label>
+                        <input type="text" class="form-control" id="job" placeholder="직업을 입력해주세요." name="job">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">주소:</label>
+                        <input type="text" class="form-control" id="address" placeholder="주소를 입력해주세요." name="address">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary my-3 mx-2">회원 등록</button>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary mx-2">이전 화면</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+            function validateForm() {
+            var u_id = document.getElementById("u_id").value;
+            if(u_id == ""){
+                alert("아이디을 입력해주세요.");
+                return false;
+            }
+    
+            var pw = document.getElementById("password").value;
+            if(pw.length < 8){
+                alert("비밀번호는 8글자 이상 입력해야 합니다.");
+                return false;
+            }
+    
+            var pw2 = document.getElementById("password2").value;
+            if(pw != pw2) {
+                alert("비밀번호는 일치해야 합니다.");
+                return false;
+            }
+    
+            var u_name = document.getElementById("u_name").value;
+            if(u_name == ""){
+                alert("이름을 입력해주세요.");
+                return false;
+            }
+    
+            var birth = document.getElementById("birth").value;
+            if(birth=="") {
+                alert("생년월일을 입력해주세요.");
+                return false;
+            }
+            
+            var telCheck =/01([0|1|6|7|8|9]?)-?(\d{3,4})-?(\d{4})/;
+            var tel = document.getElementById("tel").value;
+            var checkTel = telCheck.test(tel)
+            if(!checkTel){  
+                alert("전화번호를 다시 입력해주세요.");
+                return false;
+            }
+    
+            var emailCheck = /[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}/;
+            var email = document.getElementById("email").value;
+            var checkEmail = emailCheck.test(email);
+            if(!checkEmail){
+                alert("이메일을 다시 입력해주세요.");
+                return false;
+            }   
+    
+            var male = document.getElementById("male").checked;
+            var female = document.getElementById("female").checked;
+            if(male==false && female==false){
+                alert("성별을 선택해주세요.");
+                return false;
+            }
+            
+            var job = document.getElementById("job").value;
+            if(job == ""){
+                alert("직업을 입력해주세요.");
+                return false;
+            }
+    
+            var address = document.getElementById("address").value;
+            if(address == ""){
+                alert("주소를 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

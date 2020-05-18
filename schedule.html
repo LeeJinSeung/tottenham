@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="content" >
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <article>
+          <div class="post-image">
+            <div class="post-heading">
+              <h3> 
+				  {{ title }} 
+				  <div style="float:right; font-size:15px; margin-right:200px" id="selectBox">
+					<select>
+						<option value="2018">2018/2019</option>
+						<option value="2017">2017/2018</option>
+						<option value="2016">2016/2017</option>
+						<option value="2015">2015/2016</option>
+						<option value="2014">2014/2015</option>
+						<option value="2013">2013/2014</option>
+					</select>
+					<div class="loader" style="float:right;margin-left:20px;">
+						<div class="loader-inner ball-clip-rotate">
+							<div></div>
+						</div>
+					</div>
+				  </div>
+			  </h3>
+            </div>
+            <div id="Schedule" style="clear:both;">
+              <!-- db 구간 -->
+				<div id="schedule_list">
+					
+				</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+    $(document).ready(function() {
+        // initialize
+        
+        $.get("{{ url_for('schedule_list', idx=idx, season=season) }}".replace("&amp;", "&"), function(data, status){
+            // console.log("Data: " + data + "\nStatus: " + status);
+            $("#schedule_list").html(data);
+        });
+		$('.loader').css("visibility", "hidden");
+    });
+	$("#selectBox").change(function() {
+		$('.loader').css("visibility", "visible");
+		var newSeason = $("select option:selected").val();
+		var url = "{{ url_for('schedule_list', idx=idx) }}" + "&season=" + newSeason;
+		$.get(url.replace("&amp;", "&"), function(data, status){
+            // console.log("Data: " + data + "\nStatus: " + status);
+            $("#schedule_list").html(data);
+			$('.loader').css("visibility", "hidden");
+        });
+	});
+</script>
+{% endblock %}

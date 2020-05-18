@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <h2 class="text-center py-3">게시판 글 수정 페이지</h2>
+
+                <form class="form" id="boardPostForm" method="POST" onsubmit="return validateForm();" action="{{ url_for('board_update', board_id=board_view[0]) }}">
+                    <div class="form-group">
+                        <label for="b_id">글번호:</label>
+                        <input type="text" class="form-control" id="b_id" placeholder="Enter 글번호" name="b_id" value="{{ board_view[0] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="u_name">작성자:</label>
+                        <input type="text" class="form-control" id="u_name" placeholder="Enter 작성자" name="u_name" value="{{ board_view[2] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">제목:</label>
+                        <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." name="title" value="{{ board_view[3] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="b_password">비밀번호:</label>
+                        <input type="password" class="form-control" id="b_password" placeholder="비밀번호를 입력해주세요." name="b_password">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">내용:</label>
+                        <textarea class="form-control" id="content" placeholder="10자 이상 입력해 주세요." name="content" rows="8" style="background-color:white;">{{ board_view[4] }}</textarea>
+                    </div>                
+                    <div class="form-group">
+                        <label for="add_dt">최초 글작성 시간:</label>
+                        <input type="text" class="form-control" id="add_dt" min="1900" max="2100" name="add_dt" value="{{ board_view[5] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="upd_dt">최종 글수정 시간:</label>
+                        <input type="text" class="form-control" id="upd_dt" min="1900" max="2100" name="upd_dt" value="{{ board_view[6] }}" readonly>
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        {% if u_num==board_view[1] or rank == 2 %} {# 현재 세션의 유저와 가져온 게시글의 유저가 같은 경우 #}
+                        <button type="submit" class="btn btn-primary my-3 mx-2">게시판 글 수정 저장</button>
+                        {% endif %}
+                        <a href="{{ url_for('board_view', board_id=board_view[0] ) }}" class="btn btn-primary mx-2 text-center">이전 화면</a>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+
+            var title = document.getElementById("title").value;
+            if(title == ""){
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+
+            var pw = document.getElementById("b_password").value;
+            if(pw.length < 8){
+                alert("비밀번호는 8글자 이상 입력해야 합니다.");
+                return false;
+            }
+            var content = document.getElementById("content").value;
+            if(content.length<10){
+                alert("10자 이상 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

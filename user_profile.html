@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <h2 class="text-center py-3">회원 정보보기 페이지</h2>
+                <form class="form" id="signupForm" method="POST">
+                    <div class="form-group">
+                        <label for="p_pic">프로필 사진:</label>
+                        <img src="{{ url_for('static', filename='img/profile_picture/{}'.format(user_info[11])) }}" style="width:100px;height:100px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="u_name">이름:</label>
+                        <input type="text" class="form-control" id="u_name" name="u_name" value="{{ user_info[2] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="birth">생년월일:</label>
+                        <input type="date" class="form-control" id="birth" name="birth" value="{{ user_info[3] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">전화번호:</label>
+                        <input type="tel" class="form-control" id="tel" name="tel" value="{{ user_info[4] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일:</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user_info[5] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>성별: </label>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">                                
+                                <input type="radio" class="form-check-input" name="gender" value="M" {% if user_info[6] == 'M' %}checked {% else %} disabled {% endif %}>Male
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="gender" value="F" {% if user_info[6] == 'F' %}checked {% else %} disabled {% endif %}>Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="job">직업:</label>
+                        <input type="text" class="form-control" id="job" name="job" value="{{ user_info[7] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">주소:</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ user_info[8] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_dt">Add datetime:</label>
+                        <input type="text" class="form-control" id="add_dt" name="add_dt" value="{{ user_info[9] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="upd_dt">Update datetime:</label>
+                        <input type="text" class="form-control" id="upd_dt" name="upd_dt" value="{{ user_info[10] }}" readonly>
+                    </div>
+                    <div class="form-group text-center">
+                        {% if user_info[2] == u_name %}
+                            <a href="{{ url_for('user_update') }}" class="btn btn-primary mx-2 text-center">회원 정보 수정</a>
+                        {% endif %}
+                        <a href="{{ url_for('index') }}" class="btn btn-primary mx-2 text-center">이전 화면</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // initialize
+        });
+    </script>
+</body>
+{% endblock %}

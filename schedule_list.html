@@ -1,0 +1,21 @@
+<table border="1">
+	<tr>
+		<th> 날짜 </th>
+		<th> 상대팀 </th>
+		<th> 구장 </th>
+		<th> 경기시간 / 경기결과 </th>
+	</tr>
+	<tr>
+		{% for value in tables %}
+			{% if loop.index % 6 == 0%}
+				</tr>
+				<tr>
+			{% elif (loop.index + 4) % 6 != 0 %}
+				<td> {{ value.text }} </td>
+			{% endif %}
+		{% endfor %}
+		{% if tables|length == 0 %}
+			<td colspan="4"><h3> 경기 일정이 없습니다. </h3></td>
+		{% endif %}
+	</tr>
+</table>

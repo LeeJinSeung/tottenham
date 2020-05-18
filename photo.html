@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="section-works" class="section appear clearfix">
+    <div class="container">
+      <div class="row mar-bot40">
+        <div class="col-md-offset-3 col-md-6">
+          <div class="section-header">
+            <h2 class="section-heading animated" data-animation="bounceInUp">Photoes</h2>
+            <p>토트넘의 멋있는 사진</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <nav id="filter" class="col-md-12 text-center">
+          <ul>
+            <li><a href="#" class="current btn-theme btn-small" data-filter="*">All</a></li>
+            <li><a href="#" class="btn-theme btn-small" data-filter=".game">경기사진</a></li>
+            <li><a href="#" class="btn-theme btn-small" data-filter=".player">선수사진</a></li>
+          </ul>
+        </nav>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="portfolio-items isotopeWrapper clearfix" id="3">
+              {% for photo in photos %}
+			  <article class="col-md-4 isotopeItem {{ photo[2] }}">
+                <div class="portfolio-item">
+                  <img src="{{ url_for('static', filename='img/portfolio/{}'.format(photo[0])) }}" alt="" />
+                  <div class="portfolio-desc align-center">
+                    <div class="folio-info">
+                      <h5><a href="#">{{ photo[1] }}</a></h5>
+                      <a href="{{ url_for('static', filename='img/portfolio/{}'.format(photo[0])) }}" class="fancybox"><i class="fa fa-plus fa-2x"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+			  {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  {% endblock %}
+

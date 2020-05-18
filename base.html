@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tottenham Hotspur</title>
+  <!-- Bootstrap -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='js/fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/isotope.css') }}" media="screen" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <!-- preloader -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/loaders.min.css') }}" />
+  <script src="{{ url_for('static', filename='js/loaders.css.js') }}" /></script>
+  <style>
+	.popup:hover .dropdown-menu {
+		display: block;
+		margin-top: 0;
+	}
+	.popup2:hover .dropdown-menu {
+		display: block;
+		margin-top: 0;
+	}
+	.dropdown-menu {
+		background:black;
+	}
+	.image-blurred-edge {
+		width: 1500px;
+		height: 500px;
+		box-shadow: 0 0 15px 15px white inset;
+	}
+	table img {
+		width:100px;
+		height:100px;
+	}
+	table th,td {
+		text-align:center;
+		padding:10px;
+	}
+	table th {
+		font-size:17px;
+	}
+	table td:first-child {
+		padding:0px;
+	}
+	.ball-clip-rotate > div {
+		border: 2px solid #000;
+		border-bottom-color: transparent;
+	}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="main-menu">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h1><a class="navbar-brand" href="{{ url_for('index') }}" data-0="line-height:90px;" data-300="line-height:50px;">Tottenham
+						</a></h1>
+          </div>
+          <div class="col-md-8">
+            <div class="dropdown">
+              <ul class="nav nav-pills">
+                <li class="popup"><a href="{{ url_for('player', idx=1) }}">선수단</a>
+					<ul class="dropdown-menu">
+						<li><a href="{{ url_for('player', idx=1) }}">감독/코치</li>
+						<li><a href="{{ url_for('player', idx=2) }}">골키퍼</li>
+						<li><a href="{{ url_for('player', idx=3) }}">수비수</li>
+						<li><a href="{{ url_for('player', idx=4) }}">미드필더</li>
+						<li><a href="{{ url_for('player', idx=5) }}">공격수</li>
+					</ul></li><li class="popup2"><a href="{{ url_for('schedule', idx=1) }}">경기일정</a>
+					<ul class="dropdown-menu">
+						<li><a href="{{ url_for('schedule', idx=1) }}">EPL</li>
+						<li><a href="{{ url_for('schedule', idx=2) }}">UCL</li>
+						<li><a href="{{ url_for('schedule', idx=3) }}">FA CUP</li>
+						<li><a href="{{ url_for('schedule', idx=4) }}">기타</li>
+					</ul></li><li><a href="{{ url_for('photo') }}">경기사진</a></li>
+                <li><a href="{{ url_for('board') }}">자유게시판</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+		{% if u_name %}
+      {% include 'login.html' %}
+    {% elif nologin %}
+      
+		{% else %}
+			{% include 'logout.html' %}            
+		{% endif %}
+    </div>
+  </header>
+
+  <!-- column content -->
+  {% block content %}
+  {% endblock %}
+  <!-- end column content -->
+  <footer>
+    <section id="footer" class="section footer">
+      <div class="container">
+        <div class="row animated opacity mar-bot20" data-andown="fadeIn" data-animation="animation">
+          <div class="col-sm-12 align-center">
+            <ul class="social-network social-circle">
+              <li><a href="https://www.facebook.com/TottenhamHotspur/" class="icoFacebook" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="https://twitter.com/spursofficial?lang=ko" class="icoTwitter" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+			  <li><a href="https://www.instagram.com/spursofficial/?ref=badge" class="icoInstagram" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a></li>
+              <li><a href="https://plus.google.com/+TottenhamHotspur" class="icoGoogle" title="Google +" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+              <li><a href="https://www.youtube.com/user/spursofficial" class="icoYoutube" title="Youtube" target="_blank"><i class="fa fa-youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row align-center copyright">
+          <div class="col-sm-12 text-center">
+            <p>Copyright &copy; JinSeungLee</p>
+            <div class="credits">
+              <!--
+                All the links in the footer should remain intact. 
+                You can delete the links only if you purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Hidayah
+              -->
+              <a>Tottenham Hotspur</a> by <a>JinSeungLee</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <a href="#" class="scrollup"><i class="fa fa-chevron-up"> </i></a>
+  </footer>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.isotope.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.pack.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+  <script type="text/javascript">
+    new WOW().init();
+  </script>
+  
+</body>
+
+</html>

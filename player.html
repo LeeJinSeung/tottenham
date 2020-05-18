@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section id="content" >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <article>
+            <div class="post-image">
+              <div class="post-heading">
+                <h3> {{ title }} </h3>
+              </div>
+              <div id="Player">
+                <!-- db 구간 -->
+				<table border="1">
+					<!--
+						[0] : number
+						[1] : name
+						[2] : position
+						[3] : country
+						[4] : birth
+						[5] : height
+						[6] : weight
+					-->
+					{% if players %}
+					<tr>
+                        <th> 사진 </th>
+						{% if players[0][0] > 0 %}
+						<th> 번호 </th>
+						{% endif %}
+              <th> 이름 </th>
+              <th> 국적 </th>
+              <th> 생년월일 </th>
+              {% if players[0][0] > 0 %}
+                <th> 키 </th>
+                <th> 몸무게 </th>
+              {% endif %}
+					</tr>
+					{% endif %}
+					{% for player in players %}
+					<tr>
+            <td> <img src="{{ url_for('static', filename='img/player/{}.jpg'.format(player[0])) }}"></td>
+						{% if player[0] > 0 %}
+						  <td> {{ player[0] }} </td>
+						{% endif %}
+						<td> {{ player[1] }} </td>
+            <td> {{ player[3] }} </td>
+            <td> {{ player[4] }} </td>
+            {% if player[0] > 0 %}
+              <td> {{ player[5] }} </td>
+              <td> {{ player[6] }} </td>
+            {% endif %}
+					</tr>
+					{% endfor %}
+				</table>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
